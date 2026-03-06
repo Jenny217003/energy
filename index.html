@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>能源評估系統 — 快速入口</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0f1a;
+      --surface: #111827;
+      --border: #1e2d45;
+      --accent: #00d4aa;
+      --accent2: #0088ff;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --card-hover: #162032;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans TC', sans-serif;
+      min-height: 100vh;
+      padding: 48px 24px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Background grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    header {
+      margin-bottom: 48px;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 3px 10px;
+      border-radius: 2px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(24px, 5vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      color: #fff;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+      margin: 24px 0 36px;
+      opacity: 0.4;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    /* Card */
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      animation: fadeUp 0.5s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card:hover {
+      background: var(--card-hover);
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    /* Stagger animations */
+    .card:nth-child(1) { animation-delay: 0.10s; }
+    .card:nth-child(2) { animation-delay: 0.17s; }
+    .card:nth-child(3) { animation-delay: 0.24s; }
+    .card:nth-child(4) { animation-delay: 0.31s; }
+    .card:nth-child(5) { animation-delay: 0.38s; }
+    .card:nth-child(6) { animation-delay: 0.45s; }
+    .card:nth-child(7) { animation-delay: 0.52s; }
+
+    .icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: rgba(0,212,170,0.08);
+      border: 1px solid rgba(0,212,170,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .card:hover .icon-wrap {
+      background: rgba(0,212,170,0.15);
+    }
+
+    .card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .card-url {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .arrow {
+      color: var(--muted);
+      font-size: 18px;
+      transition: color 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .card:hover .arrow {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 48px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      animation: fadeUp 0.5s 0.6s ease both;
+    }
+
+    /* Animations */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="tag">Energy Audit System</div>
+      <h1>能源評估<span>系統入口</span></h1>
+      <p class="subtitle">各類能源審計工具快速導覽，點擊即可前往對應系統</p>
+      <div class="divider"></div>
+    </header>
+
+    <div class="grid">
+
+      <a class="card" href="https://energy-insight-hxi0506ems.replit.app" target="_blank" rel="noopener">
+        <div class="icon-wrap">💡</div>
+        <div class="card-body">
+          <div class="card-title">照明</div>
+          <div class="card-url">energy-insight-hxi0506ems.replit.app</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a class="card" href="https://energy-audit-system.replit.app" target="_blank" rel="noopener">
+        <div class="icon-wrap">🌡️</div>
+        <div class="card-body">
+          <div class="card-title">熱能</div>
+          <div class="card-url">energy-audit-system.replit.app</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a class="card" href="https://energy-savior.replit.app" target="_blank" rel="noopener">
+        <div class="icon-wrap">⚡</div>
+        <div class="card-body">
+          <div class="card-title">電力</div>
+          <div class="card-url">energy-savior.replit.app</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a class="card" href="https://energy-savings-assessor.replit.app" target="_blank" rel="noopener">
+        <div class="icon-wrap">🌀</div>
+        <div class="card-body">
+          <div class="card-title">送排風</div>
+          <div class="card-url">energy-savings-assessor.replit.app</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a class="card" href="https://energy-audit-wizard.replit.app" target="_blank" rel="noopener">
+        <div class="icon-wrap">❄️</div>
+        <div class="card-body">
+          <div class="card-title">非中央空調</div>
+          <div class="card-url">energy-audit-wizard.replit.app</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a class="card" href="https://energy-evaluator.replit.app" target="_blank" rel="noopener">
+        <div class="icon-wrap">🧊</div>
+        <div class="card-body">
+          <div class="card-title">冷凍冷藏</div>
+          <div class="card-url">energy-evaluator.replit.app</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a class="card" href="https://jie-neng-ping-gu-guan-jia.replit.app" target="_blank" rel="noopener">
+        <div class="icon-wrap">🏢</div>
+        <div class="card-body">
+          <div class="card-title">中央空調</div>
+          <div class="card-url">jie-neng-ping-gu-guan-jia.replit.app</div>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+    </div>
+
+    <footer>
+      共 7 個系統 · 點擊任一項目即可開啟對應工具
+    </footer>
+  </div>
+</body>
+</html>
